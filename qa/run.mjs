@@ -47,7 +47,7 @@ function resolve(P) {
     case "saikoku": { const m = q.match(/相手は([A-D]さん)に/); if (!m) return null; return /「認める」と返事をした/.test(q) ? `${m[1]}の契約になる` : /返事をしなかった/.test(q) ? "認めないと決めたことになる" : null; }
     case "hyoji": case "shometsugo": { const w = who(q); if (!w) return null; return /知らず、不注意もなかった/.test(q) ? `${w}が責任を負う` : /知っていた|不注意で/.test(q) ? `${w}はこの決まりでは責任を負わない` : null; }
     case "gaiken": { const w = who(q); if (!w) return null; return /理由があった/.test(q) ? `${w}が責任を負う` : /理由がなかった/.test(q) ? `${w}はこの決まりでは責任を負わない` : null; }
-    case "sekinin2": { const m = q.match(/^(?:17歳の|大人の)(.+?)は、権限が無いと分からずに/); if (!m) return null; const ok = !/^17歳の/.test(q) && /店は権限が無いと知らず、不注意もなかった/.test(q); return ok ? `${m[1]}は責任を負う` : `${m[1]}はこの決まりでは責任を負わない`; }
+    case "sekinin2": { const m = q.match(/^(?:17歳の|ひとりで契約できる大人の)(.+?)は、権限が無いと分からずに/); if (!m) return null; const ok = /^ひとりで契約できる大人の/.test(q) && /店は権限が無いと知らず、不注意もなかった/.test(q); return ok ? `${m[1]}は責任を負う` : `${m[1]}はこの決まりでは責任を負わない`; }
     case "sakanoboru": { const m = q.match(/権限なく(\d+)月(\d+)日に/); return m ? `契約した${m[1]}月${m[2]}日から` : null; }
     case "aite": return /店に直接伝えた|店はあとでそのことを知った/.test(q) ? "店に「認めた」と言える" : /店はまだ知らない/.test(q) ? "この決まりでは店に言えない" : null;
     default: return FIX[P.kind] || null;
